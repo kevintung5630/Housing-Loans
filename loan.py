@@ -1,3 +1,5 @@
+#https://www.ntsec.edu.tw/LiveSupply-Content.aspx?a=6829&fld=&key=&isd=1&icop=10&p=1&lsid=16140
+
 one = 0
 onemoney = 0# 1每月應還本金 0剩多少錢(四捨五入產生的零頭)
 allmoremoney = 0#總利息
@@ -6,70 +8,69 @@ import tkinter as tk
 window = tk.Tk()
 
 def buttonClick():
-    money = int(entryMoney.get())*10000
-    time = int(entryTimeYear.get()) * 12 + int(entryTimeMonth.get())
-    way = entryWay.get()
-    month = float(entryMonth.get()) / 100
-    one = 0
-    onemoney = 0 # 1每月應還本金 0剩多少錢(四捨五入產生的零頭)
-    allmoremoney = 0 #利息
-
-
-
-    if(way == "本息平均攤還"):
-        one = int(money * ((1 + month / 12) ** time) * (month / 12 / ((1 + month / 12) ** time - 1)))
-        onemoney = int((money * ((1 + month / 12) ** time) * (month / 12 / ((1 + month / 12) ** time - 1)))%1*time)
-        for i in range(1,time+1):
-            print("本月利息:" + str((money * month / 12 + 0.5)//1) + "元" , end = '\t')
-            allmoremoney = allmoremoney + int((money * month / 12 + 0.5))
-            if(i <= onemoney):
-                one += 1
-            if(i%12 == 0):
-                print("第" + str(i//12-1) + "年" + "12" + "月應付" + str(one) + "元" , end = '\t')
-            else:
-                print("第" + str(i//12) + "年" + str(i%12) + "月應付" + str(one) + "元" , end = '\t')
-            print("月還本金:" + str(one - int((money * month / 12 + 0.5))) + "元")
-            if(i <= onemoney):
-                one -= 1
-            money = money * (1 + month / 12) - one
-        money = 0
-    elif(way == "本金平均攤還"):
-        onemoney = int(money/time + 0.5)
-        print("月還本金:" + str(onemoney) + "元")
-        for i in range(1,time+1):
-            one = int(onemoney + money * month / 12 + 0.5)
-            print("本月利息:" + str((money * month / 12 + 0.5) // 1) + "元" , end = '\t')
-            allmoremoney = allmoremoney + int((money * month / 12 + 0.5))
-            money = money - onemoney
-            if(i == time):
-                one = one + money
-                money = 0
-            if(i%12 == 0):
-                print("第" + str(i//12-1) + "年" + "12" + "月應付" + str(one) + "元" , end = '\t')
-            else:
-                print("第" + str(i//12) + "年" + str(i%12) + "月應付" + str(one) + "元" , end = '\t') 
-            print("本金剩:" + str(money) + "元")
-    else:
-        print ("錯誤的格式")
-
-    print("利息總共:" + str(allmoremoney) + "元")
-
-
-
+    
     class Scrollbar_Example:
         def __init__(self):
             self.window = tk.Tk()
-
             self.scrollbar = tk.Scrollbar(self.window)
             self.scrollbar.pack(side="right", fill="y")
-
             self.listbox = tk.Listbox(self.window, yscrollcommand=self.scrollbar.set)
-            for i in range(100):
-                self.listbox.insert("end", str(i) + " 123 ")
+
+
+            money = int(entryMoney.get())*10000
+            time = int(entryTimeYear.get()) * 12 + int(entryTimeMonth.get())
+            way = entryWay.get()
+            month = float(entryMonth.get()) / 100
+            one = 0
+            onemoney = 0 # 1每月應還本金 0剩多少錢(四捨五入產生的零頭)
+            allmoremoney = 0 #利息
+
+
+            if(way == "本息平均攤還"):
+                one = int(money * ((1 + month / 12) ** time) * (month / 12 / ((1 + month / 12) ** time - 1)))
+                onemoney = int((money * ((1 + month / 12) ** time) * (month / 12 / ((1 + month / 12) ** time - 1)))%1*time)
+                for i in range(1,time+1):
+                    self.listbox.insert("end", " ")
+                    self.listbox.insert("end", "本月利息:" + str((money * month / 12 + 0.5)//1) + "元")#
+                    allmoremoney = allmoremoney + int((money * month / 12 + 0.5))
+                    if(i <= onemoney):
+                        one += 1
+                    if(i%12 == 0):
+                        self.listbox.insert("end", "第" + str(i//12-1) + "年" + "12" + "月應付" + str(one) + "元")#
+                    else:
+                        self.listbox.insert("end", "第" + str(i//12) + "年" + str(i%12) + "月應付" + str(one) + "元")#
+                    self.listbox.insert("end", "月還本金:" + str(one - int((money * month / 12 + 0.5))) + "元")
+                    if(i <= onemoney):
+                        one -= 1
+                    money = money * (1 + month / 12) - one
+                money = 0
+            elif(way == "本金平均攤還"):
+                onemoney = int(money/time + 0.5)
+                self.listbox.insert("end", "月還本金:" + str(onemoney) + "元")
+                for i in range(1,time+1):
+                    self.listbox.insert("end", " ")
+                    one = int(onemoney + money * month / 12 + 0.5)
+                    self.listbox.insert("end", "本月利息:" + str((money * month / 12 + 0.5) // 1) + "元")#
+                    allmoremoney = allmoremoney + int((money * month / 12 + 0.5))
+                    money = money - onemoney
+                    if(i == time):
+                        one = one + money
+                        money = 0
+                    if(i%12 == 0):
+                        self.listbox.insert("end", "第" + str(i//12-1) + "年" + "12" + "月應付" + str(one) + "元")#
+                    else:
+                        self.listbox.insert("end", "第" + str(i//12) + "年" + str(i%12) + "月應付" + str(one) + "元")#
+                    self.listbox.insert("end", "本金剩:" + str(money) + "元")
+            else:
+                self.listbox.insert("end", "錯誤的格式")
+
+            self.listbox.insert("end", " ")
+            self.listbox.insert("end", "利息總共:" + str(allmoremoney) + "元")
+
+
+
             self.listbox.pack(side="left", fill="both")
-
             self.scrollbar.config(command=self.listbox.yview)
-
             self.window.mainloop()
 
     if __name__ == '__main__':
