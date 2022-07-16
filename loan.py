@@ -15,7 +15,7 @@ def buttonClick():
     allmoremoney = 0 #利息
 
 
-    
+
     if(way == "本息平均攤還"):
         one = int(money * ((1 + month / 12) ** time) * (month / 12 / ((1 + month / 12) ** time - 1)))
         onemoney = int((money * ((1 + month / 12) ** time) * (month / 12 / ((1 + month / 12) ** time - 1)))%1*time)
@@ -53,9 +53,6 @@ def buttonClick():
         print ("錯誤的格式")
 
     print("利息總共:" + str(allmoremoney) + "元")
-    
-    result.delete(0, tk.END)
-    result.insert(0, " ")
 
 
 
@@ -68,7 +65,7 @@ def buttonClick():
 
             self.listbox = tk.Listbox(self.window, yscrollcommand=self.scrollbar.set)
             for i in range(100):
-                self.listbox.insert("end", str(i))
+                self.listbox.insert("end", str(i) + " 123 ")
             self.listbox.pack(side="left", fill="both")
 
             self.scrollbar.config(command=self.listbox.yview)
@@ -103,9 +100,14 @@ entryWay = tk.Entry(window, text = "")
 labelMonth = tk.Label(window, text = "年利率/%")
 entryMonth = tk.Entry(window)
 button = tk.Button(window, text = "試算", command = buttonClick)
-result = tk.Entry(window)
 labelEnd = tk.Label(window, text = "============================")
 
+#預設填答案
+entryMoney.insert(0, "100")
+entryTimeYear.insert(0, "1")
+entryTimeMonth.insert(0, "0")
+entryWay.insert(0, "本息平均攤還")
+entryMonth.insert(0, "1")
 
 labelBegin.pack()
 labelMoney.pack()
@@ -121,6 +123,5 @@ entryWay.pack()
 labelMonth.pack()
 entryMonth.pack()
 button.pack()
-result.pack()
 labelEnd.pack()
 window.mainloop()
