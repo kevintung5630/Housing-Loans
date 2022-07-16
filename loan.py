@@ -1,5 +1,9 @@
-#https://www.ntsec.edu.tw/LiveSupply-Content.aspx?a=6829&fld=&key=&isd=1&icop=10&p=1&lsid=16140
-
+#
+# 房貸利息
+#
+# 1581 31 董冠廷
+# kevintung5630@gmail.com
+#
 one = 0#每次還錢總額
 onemoney = 0# 1每月應還本金 0剩多少錢(四捨五入產生的零頭)
 allmoremoney = 0#總利息
